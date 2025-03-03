@@ -89,9 +89,43 @@ For Quest 2 (example):
 
 ### Step 4: Test and Enhance
 - Run vr_hand_tracker.py with your VR camera.
-
-- Measure fingertip accuracy against keyboard_layout.
+ - Measure fingertip accuracy against keyboard_layout.
 
 - If accuracy is lacking, integrate depth data (e.g., from Quest 2’s depth API or an external sensor) using the fusion approach from earlier.
 
+
+# VR-Specific Notes
+## Camera Feed:
+- Meta Quest 2: Use the Oculus SDK (LibOVR) to access the passthrough camera feed. Install the Oculus Python bindings (e.g., pip install oculus-lib) or use the native API via a Python wrapper. Example (pseudo-code):
+```
+#python
+from oculus import OculusVR
+ovr = OculusVR()
+def get_vr_camera_feed():
+    return ovr.get_passthrough_camera()
+```
+## HTC Vive: Use OpenVR’s IVRTrackedCamera API. Install pyopenvr:
+```bash
+pip install pyopenvr
+```
+### Example:
+```
+#python
+import openvr
+vr = openvr.init(openvr.VRApplication_Scene)
+def get_vr_camera_feed():
+    camera = vr.getTrackedCamera()
+    return camera.acquireVideoStreamingService()
+```
+- Rendering:
+- ** Oculus: Use ovrTextureSwapChain to submit frames to the VR display.
+
+- ** OpenVR: Use IVRCompositor.Submit to render to the headset. Example:
+```
+#python
+def render_to_vr(image):
+    texture = vr.compositor.createTexture(image)
+    vr.compositor.submit(openvr.Eye_Left, texture)
+    vr.compositor.submit(openvr.Eye_Right, texture)
+```
 
