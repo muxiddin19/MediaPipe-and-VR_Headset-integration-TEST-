@@ -41,10 +41,10 @@ python vr_hand_tracker.py
 
 # VR Integration
 - Camera Feed:
-- ##Replace get_vr_camera_feed() with your VR SDK’s camera API (e.g., Oculus passthrough for Quest 2).
+- **Replace get_vr_camera_feed() with your VR SDK’s camera API (e.g., Oculus passthrough for Quest 2).
 
 - Rendering:
-- ##Replace render_to_vr() with VR SDK rendering (e.g., OpenVR IVRCompositor).
+- **Replace render_to_vr() with VR SDK rendering (e.g., OpenVR IVRCompositor).
 
 - Tested Hardware: Currently uses webcam as placeholder; specify your headset for tailored setup.
 
